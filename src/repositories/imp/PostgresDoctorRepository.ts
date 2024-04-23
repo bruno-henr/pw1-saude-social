@@ -1,6 +1,6 @@
 import { DoctorDTO } from "../../dto/DoctorDTO";
 import { Doctor } from "../../model/Doctor";
-import { DoctorRepository } from "../DoctorRepository";
+import { DoctorRepository } from "../interface/IDoctorRepository";
 
 export class PostgresDoctorRepository implements DoctorRepository {
     async save(doctor: DoctorDTO): Promise<void> {

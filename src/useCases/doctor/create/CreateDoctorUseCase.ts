@@ -1,5 +1,5 @@
 import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { DoctorRepository } from "../../../repositories/DoctorRepository";
+import { DoctorRepository } from "../../../repositories/interface/IDoctorRepository";
 
 export class CreateDoctorUseCase {
     constructor(private doctorRepository: DoctorRepository) {}
