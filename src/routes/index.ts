@@ -1,3 +1,1 @@
-import Express from 'express';
-
-export const router = Express.Router()
+import Express from "express";
