@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --poll --exit-child src/server.ts",
+    "sync::models": "ts-node-dev ./src/syncModels.ts",
     "test": "jest",
     "test:coverage": "",
     "test:debug": ""
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/multer": "^1.4.11",
     "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }
