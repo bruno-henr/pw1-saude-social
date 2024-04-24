@@ -1,42 +1,55 @@
 import { Request, Response } from "express";
 import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
-import { mediaProxy } from "../../../proxies";
 import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { ICreateDoctorDTO } from "./DTO";
+import { uuid } from "uuidv4";
+import { ResponseDTO } from "../../../dto/ResponseDTO";
 
 export class CreateDoctorController {
-    constructor(private createDoctorUseCase: CreateDoctorUseCase) { }
+    constructor(private createDoctorUseCase: CreateDoctorUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
         const profileImage = request.file;
-        let profileImageUrl = null;
+        const { apelido, crm, email, hospital, imagem, nome } =
+            request.body as Omit<DoctorDTO, "id">;
 
         try {
-            if (profileImage) {
-                // saving the image to firebse and getting the url
-                const fileType = profileImage.mimetype.split("/")[1];
-                profileImageUrl = await mediaProxy.saveImage(
-                    profileImage.buffer,
-                    `dummyImage.${fileType}`,
-                );
-            }
-
-            let doctorDto = {
-                id: "d3b8bbbf-d91f-4c1e-a639-6f2715d60899",
-                nome: "John Doe",
-                apelido: "jony",
-                crm: "1234567891012",
-                email: "jhon@email.com",
-                hospital: "hospial albert einstein",
-                imagem: profileImageUrl
-            }
+            // creating  the new User
+            const doctorDto = new DoctorDTO(
+                uuid(),
+                nome,
+                apelido,
+                crm,
+                email,
+                hospital,
+                null,
+            );
 
             // executing the useCase
-            const result = await this.createDoctorUseCase.execute(doctorDto);
-            if (result.has_error) return response.status(400).json(result);
-            return response.status(201).json(result);
-        } catch (e: any) {
-            return response.status(400).json({ error: e?.message });
+            const doctorCreated = await this.createDoctorUseCase.execute(
+                doctorDto,
+                profileImage,
+            );
+
+            return response
+                .status(200)
+                .json(
+                    new ResponseDTO(
+                        true,
+                        "Doctor Registered Sucessfully",
+                        doctorCreated,
+                    ),
+                );
+        } catch (e) {
+            const error = e as Error;
+
+            return response.status(400).json(
+                new ResponseDTO(false, "Unable To Register Doctor", {
+                    error: {
+                        name: error.name,
+                        message: error.message,
+                    },
+                }),
+            );
         }
     }
 }

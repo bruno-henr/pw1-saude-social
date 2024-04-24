@@ -1,9 +1,9 @@
 export interface MediaProxy {
     /**
-     * Receives a data(blob) and a filename and try to save the file into
+     * Receives a data(blob) and a filePath and try to save the file into
      * media proxy
      * @param data the file data itself
-     * @param filename the filename
+     * @param filePath the filePath
      */
-    saveImage(data: Buffer, filename: string): Promise<string>;
+    saveImage(data: Buffer, filePath: string): Promise<string>;
 }
