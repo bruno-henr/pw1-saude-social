@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
 import { DoctorDTO } from "../../../dto/DoctorDTO";
 import { uuid } from "uuidv4";
-import { ResponseDTO } from "../../../dto/ResponseDTO";
+import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 
 export class CreateDoctorController {
     constructor(private createDoctorUseCase: CreateDoctorUseCase) {}
@@ -33,7 +33,7 @@ export class CreateDoctorController {
             return response
                 .status(200)
                 .json(
-                    new ResponseDTO(
+                    new ResponseEntity(
                         true,
                         "Doctor Registered Sucessfully",
                         doctorCreated,
@@ -43,7 +43,7 @@ export class CreateDoctorController {
             const error = e as Error;
 
             return response.status(400).json(
-                new ResponseDTO(false, "Unable To Register Doctor", {
+                new ResponseEntity(false, "Unable To Register Doctor", {
                     error: {
                         name: error.name,
                         message: error.message,

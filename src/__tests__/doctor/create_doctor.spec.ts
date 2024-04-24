@@ -3,7 +3,6 @@ import { DoctorRepositoryInMemory } from "../../__in_memory__/DoctorRepositoryIn
 import { CreateDoctorUseCase } from "../../useCases/doctor/create/CreateDoctorUseCase";
 import { MediaProxyInMemory } from "../../__in_memory__/MediaProxyInMemory";
 import { uuid } from "uuidv4";
-import { DoctorDTO } from "../../dto/DoctorDTO";
 
 describe("Create Doctor", () => {
     let mediaProxyInMemory: MediaProxyInMemory | null;
