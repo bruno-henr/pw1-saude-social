@@ -1,4 +1,4 @@
-export class ResponseDTO {
+export class ResponseEntity {
     public ok: boolean;
     public message: string;
     public data: Object;
