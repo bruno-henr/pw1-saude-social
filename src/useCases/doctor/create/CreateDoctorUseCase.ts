@@ -34,7 +34,6 @@ export class CreateDoctorUseCase {
                 profileImageUrl,
             );
 
-            console.log(">>>>> Image: " + profileImageUrl);
             doctor.imagem = profileImageUrl;
         }
 

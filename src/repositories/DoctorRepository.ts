@@ -1,12 +1,11 @@
 import { DoctorDTO } from "../dto/DoctorDTO";
-import { Doctor } from "../model/Doctor";
 
 export interface DoctorRepository {
-    findByPk(pk: string): Promise<Doctor | null>;
-    findByUsername(username: string): Promise<Doctor | null>;
-    setProfileImage(pk: string, imageUrl: string): Promise<void>;
+    findByPk(pk: string): Promise<DoctorDTO | null>;
+    findByUsername(username: string): Promise<DoctorDTO | null>;
+    setProfileImage(id: string, imageUrl: string): Promise<void>;
     save(doctor: DoctorDTO): Promise<void>;
-    edit(data: any): Promise<boolean>;
-    list(queries: any): Promise<Doctor[]>;
+    edit(id: string, data: any): Promise<boolean>;
+    list(queries: any): Promise<DoctorDTO[]>;
     delete(id: string): Promise<boolean>;
 }
