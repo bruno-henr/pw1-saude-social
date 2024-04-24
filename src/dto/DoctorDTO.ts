@@ -7,7 +7,7 @@ export class DoctorDTO {
     public hospital: string;
     public imagem: string | null;
 
-    constructor(
+    public constructor(
         id: string,
         nome: string,
         apelido: string,
