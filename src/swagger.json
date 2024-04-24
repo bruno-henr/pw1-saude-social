@@ -1,1 +1,83 @@
-{}
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Saúde Social - API",
+        "Description": "API developed to server saude social apps",
+        "version": "1.0.0"
+    },
+
+    "servers": [
+        {
+            "url": "http://localhost:3003",
+            "description": "test server"
+        }
+    ],
+
+    "paths": {
+        "/medico/register": {
+            "post": {
+                "summary": "Register doctor",
+                "description": "This route handles the doctor creation",
+                "tags": ["doctor"],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Doctor"
+                            }
+                        }
+                    }
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Product Created"
+                    },
+
+                    "400": {
+                        "description": "Unable to register doctor"
+                    }
+                }
+            }
+        }
+    },
+
+    "components": {
+        "schemas": {
+            "Doctor": {
+                "type": "object",
+                "properties": {
+                    "profileImage": {
+                        "type": "string",
+                        "format": "binary",
+                        "required": false
+                    },
+
+                    "nome": {
+                        "type": "string",
+                        "example": "Jhon Doe"
+                    },
+
+                    "crm": {
+                        "type": "string",
+                        "example": "3333"
+                    },
+
+                    "apelido": {
+                        "type": "string",
+                        "example": "jhondoe"
+                    },
+
+                    "email": {
+                        "type": "string",
+                        "example": "jhondoe@email.com"
+                    },
+                    "hospital": {
+                        "type": "string",
+                        "example": "Albert Einstein"
+                    }
+                }
+            }
+        }
+    }
+}
