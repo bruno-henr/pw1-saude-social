@@ -47,8 +47,4 @@ Doctor.init(
     },
 );
 
-Doctor.hasMany(Comments, {
-    foreignKey: 'medicoId'
-})
-
 export { Doctor };
