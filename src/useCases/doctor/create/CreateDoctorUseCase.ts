@@ -1,6 +1,7 @@
 import { DoctorDTO } from "../../../dto/DoctorDTO";
 import { MediaProxy } from "../../../proxies/MediaProxy";
 import { DoctorRepository } from "../../../repositories/DoctorRepository";
+import { validateEmail } from "../../../utils/validations/validateEmail";
 
 export class CreateDoctorUseCase {
     constructor(
@@ -12,6 +13,9 @@ export class CreateDoctorUseCase {
         doctor: DoctorDTO,
         profileImage?: Express.Multer.File,
     ): Promise<DoctorDTO> {
+        if (!validateEmail(doctor.email)) {
+            throw new Error("Email is invalid.");
+        }
         // registering the doctor
         await this.doctorRepository.save(doctor);
 
@@ -30,6 +34,7 @@ export class CreateDoctorUseCase {
                 profileImageUrl,
             );
 
+            console.log(">>>>> Image: " + profileImageUrl);
             doctor.imagem = profileImageUrl;
         }
 

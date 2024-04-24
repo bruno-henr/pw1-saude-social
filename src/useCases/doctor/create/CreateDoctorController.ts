@@ -8,7 +8,7 @@ import { SequelizeScopeError, ValidationError } from "sequelize";
 export class CreateDoctorController {
     constructor(private createDoctorUseCase: CreateDoctorUseCase) {}
 
-    async handle(request: Request, response: Response) {
+    async handle(request: Request, response: Response): Promise<Response> {
         const profileImage = request.file;
         const { apelido, crm, email, hospital, imagem, nome } =
             request.body as Omit<DoctorDTO, "id">;
