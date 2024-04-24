@@ -1,14 +1,16 @@
 import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { DoctorRepository } from "../../../repositories/interface/IDoctorRepository";
+import { IDoctorRepository } from "../../../repositories/interface/IDoctorRepository";
+import { Response } from "../../../utils/implementations/Response";
+import { validateEmail } from "../../../utils/validations/validateEmail";
+import { ICreateDoctorDTO } from "./DTO";
 
 export class CreateDoctorUseCase {
-    constructor(private doctorRepository: DoctorRepository) {}
+    constructor(private doctorRepository: IDoctorRepository) { }
 
-    async execute(doctor: DoctorDTO) {
-        try {
-            await this.doctorRepository.save(doctor);
-        } catch (e) {
-            throw new Error("Unable to create doctor: " + e);
+    async execute(doctor: ICreateDoctorDTO): Promise<Response> {
+        if (!validateEmail(doctor.email)) {
+            throw new Error("Email is invalid.");
         }
+        return await this.doctorRepository.save(doctor);
     }
 }
