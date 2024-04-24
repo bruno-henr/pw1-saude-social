@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
 import { DoctorDTO } from "../../../dto/DoctorDTO";
 import { uuid } from "uuidv4";
-import { ResponseEntity } from "../../../dto/ResponseEntity";
-import { SequelizeScopeError, ValidationError } from "sequelize";
+import { ResponseDTO } from "../../../dto/ResponseDTO";
 
 export class CreateDoctorController {
     constructor(private createDoctorUseCase: CreateDoctorUseCase) {}
@@ -34,7 +33,7 @@ export class CreateDoctorController {
             return response
                 .status(200)
                 .json(
-                    new ResponseEntity(
+                    new ResponseDTO(
                         true,
                         "Doctor Registered Sucessfully",
                         doctorCreated,
@@ -44,7 +43,7 @@ export class CreateDoctorController {
             const error = e as Error;
 
             return response.status(400).json(
-                new ResponseEntity(false, "Unable To Register Doctor", {
+                new ResponseDTO(false, "Unable To Register Doctor", {
                     error: {
                         name: error.name,
                         message: error.message,

@@ -6,7 +6,7 @@ import { Router } from "express";
 import { createDoctorController } from "../useCases/doctor/create";
 import { body, validationResult } from "express-validator";
 import multer from "multer";
-import { ResponseEntity } from "../dto/ResponseEntity";
+import { ResponseEntity } from "../dto/ResponseDTO";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const doctorRouter = Router();

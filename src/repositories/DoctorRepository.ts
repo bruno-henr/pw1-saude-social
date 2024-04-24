@@ -1,13 +1,12 @@
+import { DoctorDTO } from "../dto/DoctorDTO";
 import { Doctor } from "../model/Doctor";
-import { ICreateDoctorDTO } from "../useCases/doctor/create/DTO";
-import { Response } from "../utils/implementations/Response";
 
 export interface DoctorRepository {
     findByPk(pk: string): Promise<Doctor | null>;
     findByUsername(username: string): Promise<Doctor | null>;
     setProfileImage(pk: string, imageUrl: string): Promise<void>;
-    save(doctor: ICreateDoctorDTO): Promise<Response>;
-    edit(data: any): Promise<Response>;
-    list(queries: any): Promise<Response>;
-    delete(id: string): Promise<Response>;
+    save(doctor: DoctorDTO): Promise<void>;
+    edit(data: any): Promise<boolean>;
+    list(queries: any): Promise<Doctor[]>;
+    delete(id: string): Promise<boolean>;
 }
