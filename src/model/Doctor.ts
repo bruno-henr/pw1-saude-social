@@ -1,7 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/sequelizeConfig";
+import { Comments } from './Comments'
 
-class Doctor extends Model {}
+class Doctor extends Model { }
 
 Doctor.init(
     {
@@ -45,5 +46,9 @@ Doctor.init(
         tableName: "medico",
     },
 );
+
+Doctor.hasMany(Comments, {
+    foreignKey: 'medicoId'
+})
 
 export { Doctor };
