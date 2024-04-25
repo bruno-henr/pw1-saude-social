@@ -3,17 +3,16 @@
  */
 
 import { Router } from "express";
-import { createDoctorController } from "../useCases/doctor/create";
+import { createPostController } from "../useCases/post/create";
 import { body, validationResult } from "express-validator";
 import multer from "multer";
-
 const upload = multer({ storage: multer.memoryStorage() });
-const doctorRouter = Router();
+const postRouter = Router();
 
-doctorRouter.post(
-    "/register",
-    upload.single("profileImage"), // getting the image
-    body(["nome", "apelido", "crm", "email", "hospital"])
+postRouter.post(
+    "/post",
+    upload.array("filesPost", 5), 
+    body(["conteudo", "tags", "vits", "medicoId"])
         .notEmpty()
         .escape()
         .withMessage("Field Cannot Be Empty"), // validating fields
@@ -21,7 +20,7 @@ doctorRouter.post(
         const result = validationResult(req);
 
         if (result.isEmpty()) {
-            return createDoctorController.handle(req, res);
+            return createPostController.handle(req, res);
         }
 
         return res.status(400).json({
@@ -32,4 +31,4 @@ doctorRouter.post(
     },
 );
 
-export { doctorRouter };
+export { postRouter };
