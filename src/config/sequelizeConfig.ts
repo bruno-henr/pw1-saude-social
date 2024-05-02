@@ -1,6 +1,7 @@
-import { Sequelize } from "sequelize";
 import "dotenv/config";
+import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize(`${process.env.POSTGRES_URI}`);
-
-export { sequelize };
+export const configureSequelize = (uri: string) => {
+    const sequelize = new Sequelize(uri);
+    return sequelize;
+};

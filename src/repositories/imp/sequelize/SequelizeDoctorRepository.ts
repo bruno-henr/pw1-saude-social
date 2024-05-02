@@ -1,15 +1,35 @@
+import { Sequelize } from "sequelize";
 import { uuid } from "uuidv4";
-import { Doctor } from "../../model/Doctor";
-import { ICreateDoctorDTO } from "../../useCases/doctor/create/DTO";
-import { IUpdateDoctorDTO } from "../../useCases/doctor/update/DTO";
-import { ResponseEntity } from "../../utils/implementations/ResponseEntity";
-import { IDoctorRepository } from "../interface/IDoctorRepository";
+import {
+    DoctorModel,
+    DoctorModelProperties,
+} from "../../../model/imp/sequelize/DoctorModel";
+import { PostModel } from "../../../model/imp/sequelize/PostModel";
+import { ICreateDoctorDTO } from "../../../useCases/doctor/create/DTO";
+import { IUpdateDoctorDTO } from "../../../useCases/doctor/update/DTO";
+import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
+import { IDoctorRepository } from "../../interface/IDoctorRepository";
 
-export class PostgresDoctorRepository implements IDoctorRepository {
+export class SequelizeDoctorRepository implements IDoctorRepository {
+    constructor(sequelize: Sequelize) {
+        DoctorModel.init(DoctorModelProperties, {
+            sequelize,
+            modelName: "Doctor",
+            tableName: "medico",
+        });
+
+        DoctorModel.hasMany(PostModel, {
+            foreignKey: "medicoId",
+        });
+    }
+
     async save(doctor: ICreateDoctorDTO): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const doctorSaved = await Doctor.create({ ...doctor, id: uuid() });
+            await DoctorModel.sync();
+            const doctorSaved = await DoctorModel.create({
+                ...doctor,
+                id: uuid(),
+            });
             return new ResponseEntity(true, "Docter registered", doctorSaved);
         } catch (error: any) {
             return new ResponseEntity(false, error, {});
@@ -17,8 +37,8 @@ export class PostgresDoctorRepository implements IDoctorRepository {
     }
     async updateOne(doctor: IUpdateDoctorDTO): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const doctorUpdated = await Doctor.update(doctor, {
+            await DoctorModel.sync();
+            const doctorUpdated = await DoctorModel.update(doctor, {
                 where: { id: doctor.id },
             });
             return new ResponseEntity(true, "Doctor updated", doctorUpdated);
@@ -29,12 +49,12 @@ export class PostgresDoctorRepository implements IDoctorRepository {
 
     async list(queries: any): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
+            await DoctorModel.sync();
 
-            let doctors: Doctor[];
+            let doctors: DoctorModel[];
             if (Object.keys(queries).length)
-                doctors = await Doctor.findAll({ where: queries });
-            else doctors = await Doctor.findAll();
+                doctors = await DoctorModel.findAll({ where: queries });
+            else doctors = await DoctorModel.findAll();
 
             return new ResponseEntity(true, "Doctors found", doctors);
         } catch (error: any) {
@@ -44,8 +64,8 @@ export class PostgresDoctorRepository implements IDoctorRepository {
 
     async delete(id: string): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const numDoctorDeleted = await Doctor.destroy({
+            await DoctorModel.sync();
+            const numDoctorDeleted = await DoctorModel.destroy({
                 where: {
                     id,
                 },
@@ -59,8 +79,8 @@ export class PostgresDoctorRepository implements IDoctorRepository {
 
     async findByPk(pk: string): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const doctorFound = await Doctor.findByPk(pk);
+            await DoctorModel.sync();
+            const doctorFound = await DoctorModel.findByPk(pk);
             return new ResponseEntity(
                 true,
                 "Query successfull",
@@ -73,8 +93,8 @@ export class PostgresDoctorRepository implements IDoctorRepository {
 
     async findByUsername(username: string): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const doctor = await Doctor.findOne({
+            await DoctorModel.sync();
+            const doctor = await DoctorModel.findOne({
                 fieldMap: { apelido: username },
             });
 
@@ -89,8 +109,10 @@ export class PostgresDoctorRepository implements IDoctorRepository {
         imageUrl: string,
     ): Promise<ResponseEntity> {
         try {
-            await Doctor.sync();
-            const doctor = await Doctor.findOne({ where: { nome: username } });
+            await DoctorModel.sync();
+            const doctor = await DoctorModel.findOne({
+                where: { nome: username },
+            });
             if (!doctor) throw new Error("Doctor Not Found");
 
             doctor.set({ imagem: imageUrl });

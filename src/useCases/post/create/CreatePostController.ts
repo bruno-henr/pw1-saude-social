@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
-import { CreatePostUseCase } from "./CreatePostUseCase";
-import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { uuid } from "uuidv4";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
+import { CreatePostUseCase } from "./CreatePostUseCase";
 import { ICreatePostDTO } from "./DTO";
 
 export class CreatePostController {
-    constructor(private createPostUseCase: CreatePostUseCase) { }
+    constructor(private createPostUseCase: CreatePostUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
         try {

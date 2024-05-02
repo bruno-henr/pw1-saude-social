@@ -1,9 +1,11 @@
-import { PostgresDoctorRepository } from "../../../repositories/imp/PostgresDoctorRepository";
+import { mediaProxy } from "../../../proxies";
+import { doctorRepository } from "../../../repositories";
 import { UpdateDoctorCotroller } from "./UpdateDoctorController";
 import { UpdateDoctorService } from "./UpdateDoctorUseCase";
 
 const updateDoctorService = new UpdateDoctorService(
-    new PostgresDoctorRepository(),
+    doctorRepository,
+    mediaProxy,
 );
 const updateDoctorController = new UpdateDoctorCotroller(updateDoctorService);
 
