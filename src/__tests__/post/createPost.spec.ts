@@ -1,7 +1,7 @@
-import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
+import { describe, test } from "@jest/globals";
 import { MediaProxyInMemory } from "../../__in_memory__/MediaProxyInMemory";
-import { IPostRepository } from "../../repositories/interface/IPostRepository";
 import { PostRepositoryInMemory } from "../../__in_memory__/PostRepositoryInMemory";
+import { IPostRepository } from "../../repositories/interface/IPostRepository";
 import { CreatePostUseCase } from "../../useCases/post/create/CreatePostUseCase";
 
 describe("Create Doctor", () => {
@@ -31,9 +31,9 @@ describe("Create Doctor", () => {
             conteudo: "conteudo de uma postagem...",
             tags: "tag1;tag2;tag3",
             vits: "2/0",
-            medicoId: "d3b8bbbf-d91f-4c1e-a639"
-        }
-        const result = await createPostUseCase?.execute(post)
-        console.log('result => ', result)
-    })    
-})
+            medicoId: "d3b8bbbf-d91f-4c1e-a639",
+        };
+        const result = await createPostUseCase?.execute(post);
+        console.log("result => ", result);
+    });
+});

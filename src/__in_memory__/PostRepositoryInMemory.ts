@@ -1,10 +1,9 @@
+import { uuid } from "uuidv4";
 import { IPostRepository } from "../repositories/interface/IPostRepository";
 import { ICreatePostDTO } from "../useCases/post/create/DTO";
 import { ResponseEntity } from "../utils/implementations/ResponseEntity";
-import { uuid } from "uuidv4";
 
 export class PostRepositoryInMemory implements IPostRepository {
-
     private posts: ICreatePostDTO[];
 
     constructor() {

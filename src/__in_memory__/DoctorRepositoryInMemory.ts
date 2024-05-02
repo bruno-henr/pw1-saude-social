@@ -1,27 +1,32 @@
-import { DoctorDTO } from "../dto/DoctorDTO";
-import { DoctorRepository } from "../repositories/DoctorRepository";
+import { IDoctorDTO } from "../dto/IDoctorDto";
+import { IDoctorRepository } from "../repositories/interface/IDoctorRepository";
+import { IUpdateDoctorDTO } from "../useCases/doctor/update/DTO";
+import { ResponseEntity } from "../utils/implementations/ResponseEntity";
 
-class DoctorRepositoryInMemory implements DoctorRepository {
-    private doctors: DoctorDTO[];
+class DoctorRepositoryInMemory implements IDoctorRepository {
+    private doctors: IDoctorDTO[];
 
     constructor() {
         this.doctors = [];
     }
 
-    async findByPk(pk: string): Promise<DoctorDTO | null> {
+    async findByPk(pk: string): Promise<ResponseEntity> {
         const doc = this.doctors.find((dt) => dt.id == pk);
-        return doc ? doc : null;
+        return new ResponseEntity(true, "Dummy", doc || {});
     }
 
-    async findByUsername(username: string): Promise<DoctorDTO | null> {
+    async findByUsername(username: string): Promise<ResponseEntity> {
         const doc = this.doctors.find((dt) => dt.apelido == username);
-        return doc ? doc : null;
+        return new ResponseEntity(true, "Dummy", doc || []);
     }
-    async setProfileImage(pk: string, imageUrl: string): Promise<void> {
+    async setProfileImage(
+        pk: string,
+        imageUrl: string,
+    ): Promise<ResponseEntity> {
         const doc = this.doctors.find((dt) => dt.id == pk);
-        if (!doc) throw new Error("Doctor not found");
+        return new ResponseEntity(true, "Dummy", doc || {});
     }
-    async save(doctor: DoctorDTO): Promise<void> {
+    async save(doctor: IDoctorDTO): Promise<ResponseEntity> {
         if (
             this.doctors.find(
                 (dt) =>
@@ -30,20 +35,28 @@ class DoctorRepositoryInMemory implements DoctorRepository {
                     dt.crm === doctor.crm,
             )
         )
-            throw new Error("Doctor already registered");
+            return new ResponseEntity(false, "Doctor already registered", {});
 
         this.doctors.push(doctor);
-    }
-    async edit(data: any): Promise<boolean> {
-        const doctor = this.doctors.find((dt) => dt);
-        if (!doctor) throw new Error("Doctor not found");
 
-        return true;
+        return new ResponseEntity(true, "Doctor registered", doctor);
     }
-    async list(queries: any): Promise<DoctorDTO[]> {
+    async updateOne(uDoctor: IUpdateDoctorDTO): Promise<ResponseEntity> {
+        const doctor = this.doctors.find((dt) => dt);
+        if (!doctor) return new ResponseEntity(false, "Doctor not found", {});
+
+        const doctorIndex = this.doctors.findIndex(
+            (dt) => dt.id === uDoctor.id,
+        );
+
+        this.doctors[doctorIndex] = uDoctor;
+
+        return new ResponseEntity(true, "Doctor updated", uDoctor);
+    }
+    async list(queries: any): Promise<ResponseEntity> {
         throw new Error("Method not implemented.");
     }
-    async delete(id: string): Promise<boolean> {
+    async delete(id: string): Promise<ResponseEntity> {
         throw new Error("Method not implemented.");
     }
 }

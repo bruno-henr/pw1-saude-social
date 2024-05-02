@@ -1,8 +1,8 @@
-import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
-import { DoctorRepositoryInMemory } from "../../__in_memory__/DoctorRepositoryInMemory";
-import { CreateDoctorUseCase } from "../../useCases/doctor/create/CreateDoctorUseCase";
-import { MediaProxyInMemory } from "../../__in_memory__/MediaProxyInMemory";
+import { describe, expect, test } from "@jest/globals";
 import { uuid } from "uuidv4";
+import { DoctorRepositoryInMemory } from "../../__in_memory__/DoctorRepositoryInMemory";
+import { MediaProxyInMemory } from "../../__in_memory__/MediaProxyInMemory";
+import { CreateDoctorUseCase } from "../../useCases/doctor/create/CreateDoctorUseCase";
 
 describe("Create Doctor", () => {
     let mediaProxyInMemory: MediaProxyInMemory | null;
@@ -55,7 +55,9 @@ describe("Create Doctor", () => {
 
         const doctorCreated = await createDoctorUseCase?.execute(doctorDto);
 
-        expect(JSON.stringify(doctorCreated)).toBe(JSON.stringify(doctorDto));
+        expect(JSON.stringify(doctorCreated!.data)).toBe(
+            JSON.stringify(doctorDto),
+        );
     });
 
     test("should not be able to create an doctor with a taken username", async () => {
@@ -71,11 +73,9 @@ describe("Create Doctor", () => {
 
         let doc2 = { ...doc1 };
 
-        await createDoctorUseCase?.execute(doc1);
-
-        expect(async () => {
-            await createDoctorUseCase?.execute(doc2);
-        }).rejects.toThrow();
+        await createDoctorUseCase!.execute(doc1);
+        const response = await createDoctorUseCase!.execute(doc2);
+        expect(response.ok).toBeFalsy();
     });
 
     test("should not be able to create an doctor with a registered CRM", async () => {
@@ -99,14 +99,13 @@ describe("Create Doctor", () => {
             imagem: null,
         });
 
-        await createDoctorUseCase?.execute(doc1);
+        await createDoctorUseCase!.execute(doc1);
+        const response = await createDoctorUseCase!.execute(doc2);
 
-        expect(async () => {
-            await createDoctorUseCase?.execute(doc2);
-        }).rejects.toThrow();
+        expect(response.ok).toBeFalsy();
     });
 
-    test("not should be able create an doctor with email invalid", () => {
+    test("not should be able create an doctor with email invalid", async () => {
         let doctorDto = {
             id: "d3b8bbbf-d91f-4c1e-a639-6f2715d60899",
             nome: "John Doe",
@@ -117,8 +116,7 @@ describe("Create Doctor", () => {
             imagem: null,
         };
 
-        expect(async () => {
-            await createDoctorUseCase?.execute(doctorDto);
-        }).rejects.toThrow();
+        const response = await createDoctorUseCase!.execute(doctorDto);
+        expect(response.ok).toBeFalsy();
     });
 });
