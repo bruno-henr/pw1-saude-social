@@ -4,7 +4,7 @@ import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { validateEmail } from "../../../utils/validations/validateEmail";
 import { IUpdateDoctorDTO } from "./DTO";
 
-export class UpdateDoctorService {
+export class UpdateDoctorUseCase {
     constructor(
         private doctorRepository: IDoctorRepository,
         private mediaProxy: MediaProxy,
@@ -15,7 +15,7 @@ export class UpdateDoctorService {
         profileImage?: Express.Multer.File,
     ): Promise<ResponseEntity> {
         if (!validateEmail(doctor.email)) {
-            throw new Error("Email is invalid.");
+            return new ResponseEntity(false, "Email is invalid.", {});
         }
 
         // updating the doctor

@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, WhereOptions } from "sequelize";
 import { uuid } from "uuidv4";
 import {
     DoctorModel,
@@ -47,7 +47,7 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         }
     }
 
-    async list(queries: any): Promise<ResponseEntity> {
+    async list(queries: WhereOptions): Promise<ResponseEntity> {
         try {
             await DoctorModel.sync();
 
@@ -95,7 +95,7 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         try {
             await DoctorModel.sync();
             const doctor = await DoctorModel.findOne({
-                fieldMap: { apelido: username },
+                where: { apelido: username },
             });
 
             return new ResponseEntity(true, "Query successfull", doctor || {});

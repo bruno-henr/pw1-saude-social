@@ -1,4 +1,4 @@
-import { initRepositories } from "../model/imp/sequelize";
+import { initRepositories } from "./imp/sequelize/initRepositories";
 
 const { commentsRepository, postRepository, doctorRepository } =
     initRepositories();

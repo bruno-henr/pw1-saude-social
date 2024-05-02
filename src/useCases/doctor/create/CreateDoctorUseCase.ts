@@ -15,7 +15,7 @@ export class CreateDoctorUseCase {
         profileImage?: Express.Multer.File,
     ): Promise<ResponseEntity> {
         if (!validateEmail(doctor.email)) {
-            throw new Error("Email is invalid.");
+            return new ResponseEntity(false, "Email is invalid.", {});
         }
         // registering the doctor
         let result = await this.doctorRepository.save(doctor);
