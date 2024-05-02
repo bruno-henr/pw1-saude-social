@@ -1,95 +1,104 @@
-import { DoctorDTO } from "../../dto/DoctorDTO";
+import { uuid } from "uuidv4";
 import { Doctor } from "../../model/Doctor";
-import { DoctorRepository } from "../DoctorRepository";
+import { ICreateDoctorDTO } from "../../useCases/doctor/create/DTO";
+import { IUpdateDoctorDTO } from "../../useCases/doctor/update/DTO";
+import { ResponseEntity } from "../../utils/implementations/ResponseEntity";
+import { IDoctorRepository } from "../interface/IDoctorRepository";
 
-export class PostgresDoctorRepository implements DoctorRepository {
-    async save(doctor: DoctorDTO): Promise<void> {
-        await Doctor.sync();
-        await Doctor.create({ ...doctor });
+export class PostgresDoctorRepository implements IDoctorRepository {
+    async save(doctor: ICreateDoctorDTO): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const doctorSaved = await Doctor.create({ ...doctor, id: uuid() });
+            return new ResponseEntity(true, "Docter registered", doctorSaved);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
-    async edit(id: string, data: any): Promise<boolean> {
-        await Doctor.sync();
-        const response = await Doctor.update(data, {
-            where: { id: data.id },
-        });
-        return response.length > 0;
-    }
-
-    async list(queries: any): Promise<DoctorDTO[]> {
-        await Doctor.sync();
-
-        let doctors: Doctor[];
-        if (Object.keys(queries).length)
-            doctors = await Doctor.findAll({ where: queries });
-        else doctors = await Doctor.findAll();
-
-        const doctorsList = doctors.map(
-            (dt) =>
-                new DoctorDTO(
-                    dt.getDataValue("id"),
-                    dt.getDataValue("nome"),
-                    dt.getDataValue("apelido"),
-                    dt.getDataValue("crm"),
-                    dt.getDataValue("email"),
-                    dt.getDataValue("hospital"),
-                    dt.getDataValue("imagem"),
-                ),
-        );
-
-        return doctorsList;
+    async updateOne(doctor: IUpdateDoctorDTO): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const doctorUpdated = await Doctor.update(doctor, {
+                where: { id: doctor.id },
+            });
+            return new ResponseEntity(true, "Doctor updated", doctorUpdated);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 
-    async delete(id: string): Promise<boolean> {
-        await Doctor.sync();
-        const doctorDeleted = await Doctor.destroy({
-            where: {
-                id,
-            },
-        });
-        return doctorDeleted > 0;
+    async list(queries: any): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+
+            let doctors: Doctor[];
+            if (Object.keys(queries).length)
+                doctors = await Doctor.findAll({ where: queries });
+            else doctors = await Doctor.findAll();
+
+            return new ResponseEntity(true, "Doctors found", doctors);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 
-    async findByPk(pk: string): Promise<DoctorDTO | null> {
-        await Doctor.sync();
-        const doctor = await Doctor.findByPk(pk);
+    async delete(id: string): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const numDoctorDeleted = await Doctor.destroy({
+                where: {
+                    id,
+                },
+            });
 
-        return doctor
-            ? new DoctorDTO(
-                  doctor.getDataValue("id"),
-                  doctor.getDataValue("nome"),
-                  doctor.getDataValue("apelido"),
-                  doctor.getDataValue("crm"),
-                  doctor.getDataValue("email"),
-                  doctor.getDataValue("hospital"),
-                  doctor.getDataValue("imagem"),
-              )
-            : null;
+            return new ResponseEntity(true, "Doctor deleted", numDoctorDeleted);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 
-    async findByUsername(username: string): Promise<DoctorDTO | null> {
-        await Doctor.sync();
-        const doctor = await Doctor.findOne({
-            fieldMap: { apelido: username },
-        });
-
-        return doctor
-            ? new DoctorDTO(
-                  doctor.getDataValue("id"),
-                  doctor.getDataValue("nome"),
-                  doctor.getDataValue("apelido"),
-                  doctor.getDataValue("crm"),
-                  doctor.getDataValue("email"),
-                  doctor.getDataValue("hospital"),
-                  doctor.getDataValue("imagem"),
-              )
-            : null;
+    async findByPk(pk: string): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const doctorFound = await Doctor.findByPk(pk);
+            return new ResponseEntity(
+                true,
+                "Query successfull",
+                doctorFound || {},
+            );
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 
-    async setProfileImage(pk: string, imageUrl: string): Promise<void> {
-        await Doctor.sync();
-        const doctor = await Doctor.findByPk(pk);
-        if (!doctor) throw new Error("Doctor Not Found");
-        doctor.set({ imagem: imageUrl });
-        await doctor.save();
+    async findByUsername(username: string): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const doctor = await Doctor.findOne({
+                fieldMap: { apelido: username },
+            });
+
+            return new ResponseEntity(true, "Query successfull", doctor || {});
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
+    }
+
+    async setProfileImage(
+        username: string,
+        imageUrl: string,
+    ): Promise<ResponseEntity> {
+        try {
+            await Doctor.sync();
+            const doctor = await Doctor.findOne({ where: { nome: username } });
+            if (!doctor) throw new Error("Doctor Not Found");
+
+            doctor.set({ imagem: imageUrl });
+            const doctorUpdated = await doctor.save();
+
+            return new ResponseEntity(true, "Image set", doctorUpdated);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 }

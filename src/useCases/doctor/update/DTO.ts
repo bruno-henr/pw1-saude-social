@@ -1,4 +1,5 @@
-export interface ICreateDoctorDTO {
+export interface IUpdateDoctorDTO {
+    id: string;
     nome: string;
     apelido: string;
     crm: string;
