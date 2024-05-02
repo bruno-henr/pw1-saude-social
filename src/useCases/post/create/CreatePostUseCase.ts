@@ -1,5 +1,3 @@
-import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { Post } from "../../../model/Post";
 import { MediaProxy } from "../../../proxies/MediaProxy";
 import { IPostRepository } from "../../../repositories/interface/IPostRepository";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
@@ -9,7 +7,7 @@ export class CreatePostUseCase {
     constructor(
         private postRepository: IPostRepository,
         private mediaProxy: MediaProxy,
-    ) { }
+    ) {}
 
     async execute(
         data: ICreatePostDTO,

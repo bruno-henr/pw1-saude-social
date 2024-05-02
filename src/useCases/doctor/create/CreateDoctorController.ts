@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
-import { DoctorDTO } from "../../../dto/DoctorDTO";
-import { uuid } from "uuidv4";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
+import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
+import { ICreateDoctorDTO } from "./DTO";
 
 export class CreateDoctorController {
     constructor(private createDoctorUseCase: CreateDoctorUseCase) {}
@@ -10,35 +9,24 @@ export class CreateDoctorController {
     async handle(request: Request, response: Response): Promise<Response> {
         const profileImage = request.file;
         const { apelido, crm, email, hospital, imagem, nome } =
-            request.body as Omit<DoctorDTO, "id">;
+            request.body as ICreateDoctorDTO;
 
         try {
             // creating  the new User
-            const doctorDto = new DoctorDTO(
-                uuid(),
+            const doctorDto: ICreateDoctorDTO = {
                 nome,
                 apelido,
                 crm,
                 email,
                 hospital,
-                null,
-            );
+            };
 
             // executing the useCase
-            const doctorCreated = await this.createDoctorUseCase.execute(
+            const result = await this.createDoctorUseCase.execute(
                 doctorDto,
                 profileImage,
             );
-
-            return response
-                .status(200)
-                .json(
-                    new ResponseEntity(
-                        true,
-                        "Doctor Registered Sucessfully",
-                        doctorCreated,
-                    ),
-                );
+            return response.status(200).json(result);
         } catch (e) {
             const error = e as Error;
 

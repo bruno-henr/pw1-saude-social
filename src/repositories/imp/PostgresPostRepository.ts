@@ -1,5 +1,4 @@
 import { Post } from "../../model/Post";
-import { ICreateDoctorDTO } from "../../useCases/doctor/create/DTO";
 import { ICreatePostDTO } from "../../useCases/post/create/DTO";
 import { ResponseEntity } from "../../utils/implementations/ResponseEntity";
 import { IPostRepository } from "../interface/IPostRepository";
@@ -14,9 +13,8 @@ export class PostgresPostRepository implements IPostRepository {
     async save(post: ICreatePostDTO): Promise<ResponseEntity> {
         try {
             await Post.sync();
-            const postSaved = await Post.create({ ...post })
-            
-            
+            const postSaved = await Post.create({ ...post });
+
             return new ResponseEntity<Post>(true, "", postSaved);
         } catch (error: any) {
             return new ResponseEntity(false, error, {});
@@ -31,5 +29,4 @@ export class PostgresPostRepository implements IPostRepository {
     delete(id: string): Promise<ResponseEntity> {
         throw new Error("Method not implemented.");
     }
-
 }

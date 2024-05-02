@@ -1,6 +1,6 @@
 import { Router } from "express";
+import { doctorRouter } from "./doctor.routes";
 import { postRouter } from "./post.routes";
-import { doctorRouter } from "./doctor";
 
 export const router = Router();
 

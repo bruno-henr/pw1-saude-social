@@ -2,25 +2,26 @@ import { MediaProxy } from "../../../proxies/MediaProxy";
 import { IDoctorRepository } from "../../../repositories/interface/IDoctorRepository";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { validateEmail } from "../../../utils/validations/validateEmail";
-import { ICreateDoctorDTO } from "./DTO";
+import { IUpdateDoctorDTO } from "./DTO";
 
-export class CreateDoctorUseCase {
+export class UpdateDoctorService {
     constructor(
         private doctorRepository: IDoctorRepository,
         private mediaProxy: MediaProxy,
     ) {}
 
     async execute(
-        doctor: ICreateDoctorDTO,
+        doctor: IUpdateDoctorDTO,
         profileImage?: Express.Multer.File,
     ): Promise<ResponseEntity> {
         if (!validateEmail(doctor.email)) {
             throw new Error("Email is invalid.");
         }
-        // registering the doctor
-        let result = await this.doctorRepository.save(doctor);
 
-        // if everything was ok with the creation we save the profile image (if exists)
+        // updating the doctor
+        let result = await this.doctorRepository.updateOne(doctor);
+
+        // if image was passed
         if (profileImage && result.ok) {
             // saving the image to firebase and getting the url
             const fileType = profileImage.mimetype.split("/")[1];
