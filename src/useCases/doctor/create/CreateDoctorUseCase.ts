@@ -26,7 +26,7 @@ export class CreateDoctorUseCase {
             const fileType = profileImage.mimetype.split("/")[1];
             const profileImageUrl = await this.mediaProxy.saveImage(
                 profileImage.buffer,
-                `/${doctor.apelido}/img/profile/${doctor.apelido}-profile-image.${fileType}`,
+                `${doctor.apelido}/img/profile/${doctor.apelido}-profile-image.${fileType}`,
             );
 
             // updating the image profile

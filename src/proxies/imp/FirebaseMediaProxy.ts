@@ -10,4 +10,8 @@ export class FirebaseMediaProxy implements MediaProxy {
         const url = file.publicUrl();
         return url;
     }
+
+    async deleteStorage(username: string): Promise<void> {
+        await bucket.deleteFiles({ prefix: `${username}/` });
+    }
 }

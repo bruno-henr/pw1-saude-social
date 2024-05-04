@@ -71,6 +71,8 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
                 },
             });
 
+            if (!numDoctorDeleted) throw new Error("Unable to delete doctor");
+
             return new ResponseEntity(true, "Doctor deleted", numDoctorDeleted);
         } catch (error: any) {
             return new ResponseEntity(false, error, {});
@@ -81,11 +83,10 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         try {
             await DoctorModel.sync();
             const doctorFound = await DoctorModel.findByPk(pk);
-            return new ResponseEntity(
-                true,
-                "Query successfull",
-                doctorFound || {},
-            );
+
+            if (!doctorFound) throw new Error("Doctor not found");
+
+            return new ResponseEntity(true, "Query successfull", doctorFound);
         } catch (error: any) {
             return new ResponseEntity(false, error, {});
         }

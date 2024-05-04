@@ -6,4 +6,6 @@ export interface MediaProxy {
      * @param filePath the filePath
      */
     saveImage(data: Buffer, filePath: string): Promise<string>;
+
+    deleteStorage(username: string): Promise<void>;
 }
