@@ -2,10 +2,11 @@
  * Handles all routes starting the /medico
  */
 
-import { Router } from "express";
-import { body, validationResult } from "express-validator";
+import { Request, Response, Router } from "express";
+import { body, header, validationResult } from "express-validator";
 import multer from "multer";
 import { createDoctorController } from "../useCases/doctor/create";
+import { deleteDoctorController } from "../useCases/doctor/delete";
 import { updateDoctorController } from "../useCases/doctor/update";
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -52,6 +53,18 @@ doctorRouter.put(
             message: `All fields must be not fullfield`,
             erros: result.array(),
         });
+    },
+);
+
+doctorRouter.delete(
+    "/",
+    header("doctorId")
+        .notEmpty()
+        .escape()
+        .withMessage("Doctor Id must be passed in a HTTP header "),
+    (req: Request, res: Response) => {
+        if (validationResult(req).isEmpty())
+            return deleteDoctorController.handle(req, res);
     },
 );
 

@@ -1,9 +1,8 @@
-import { FirebaseMediaProxy } from "../../../proxies/imp/FirebaseMediaProxy";
+import { mediaProxy } from "../../../proxies";
 import { doctorRepository } from "../../../repositories";
 import { CreateDoctorController } from "./CreateDoctorController";
 import { CreateDoctorUseCase } from "./CreateDoctorUseCase";
 
-const mediaProxy = new FirebaseMediaProxy();
 const createDoctorUseCase = new CreateDoctorUseCase(
     doctorRepository,
     mediaProxy,
