@@ -8,6 +8,7 @@ import multer from "multer";
 import { createDoctorController } from "../useCases/doctor/create";
 import { deleteDoctorController } from "../useCases/doctor/delete";
 import { updateDoctorController } from "../useCases/doctor/update";
+import { getDoctorController } from "../useCases/doctor/get";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const doctorRouter = Router();
@@ -30,6 +31,23 @@ doctorRouter.post(
             ok: false,
             message: `All fields must be not fullfield`,
             erros: result.array(),
+        });
+    },
+);
+
+doctorRouter.get(
+    "/",
+    (req, res) => {
+        const errors = validationResult(req);
+
+        if (errors.isEmpty()) {
+            return getDoctorController.handle(req, res);
+        }
+
+        return res.status(400).json({
+            ok: false,
+            message: `All fields must be not fullfield`,
+            erros: errors.array(),
         });
     },
 );
