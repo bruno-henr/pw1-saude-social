@@ -8,7 +8,7 @@ export class CreateDoctorController {
 
     async handle(request: Request, response: Response): Promise<Response> {
         const profileImage = request.file;
-        const { apelido, crm, email, hospital, imagem, nome } =
+        const { apelido, crm, email, hospital, nome } =
             request.body as ICreateDoctorDTO;
 
         try {
@@ -26,7 +26,7 @@ export class CreateDoctorController {
                 doctorDto,
                 profileImage,
             );
-            return response.status(200).json(result);
+            return response.status(201).json(result);
         } catch (e) {
             const error = e as Error;
 
