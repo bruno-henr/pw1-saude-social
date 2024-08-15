@@ -53,9 +53,12 @@ export class SequelizePostRepository implements IPostRepository {
                 result = await PostModel.findAll({
                     where: {
                         medicoId: medicoId,
-                    }
+                    },
+                    include: CommentsModel
                 });
-            else result = await PostModel.findAll();
+            else result = await PostModel.findAll({
+                include: CommentsModel
+            });
 
             return new ResponseEntity(true, "Post found", result);
         } catch (error: any) {
