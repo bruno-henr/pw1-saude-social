@@ -62,7 +62,20 @@ export class SequelizePostRepository implements IPostRepository {
             return new ResponseEntity(false, error, {});
         }
     }
-    delete(id: string): Promise<ResponseEntity> {
-        throw new Error("Method not implemented.");
+    async delete(id: string): Promise<ResponseEntity> {
+        try {
+            await PostModel.sync();
+            const numPostDeleted = await PostModel.destroy({
+                where: {
+                    id,
+                },
+            });
+
+            if (!numPostDeleted) throw new Error("Unable to delete post");
+
+            return new ResponseEntity(true, "Post deleted", numPostDeleted);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
     }
 }

@@ -8,6 +8,7 @@ import { listPostController } from "../useCases/post/list";
 import { body, validationResult } from "express-validator";
 import multer from "multer";
 import { putPostController } from "../useCases/post/put";
+import { deletePostController } from "../useCases/post/delete";
 const upload = multer({ storage: multer.memoryStorage() });
 const postRouter = Router();
 
@@ -58,6 +59,13 @@ postRouter.put(
             erros: result.array(),
         });
     },
+);
+
+postRouter.delete(
+    "/post/:id",
+    (req, res) => {
+        return deletePostController.handle(req, res);
+    }
 );
 
 export { postRouter };
