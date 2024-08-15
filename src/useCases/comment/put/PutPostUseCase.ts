@@ -1,38 +1,17 @@
-import { MediaProxy } from "../../../proxies/MediaProxy";
-import { IPostRepository } from "../../../repositories/interface/IPostRepository";
+import { ICommentsRepository } from "../../../repositories/interface/ICommentsRepository";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
-import { IPutPostDTO } from "./DTO";
+import { IPutCommentDTO } from "./DTO";
 
-export class PutPostUseCase {
+export class PutCommentUseCase {
     constructor(
-        private postRepository: IPostRepository,
-        private mediaProxy: MediaProxy,
-    ) {}
+        private commentsRepository: ICommentsRepository,
+    ) { }
 
     async execute(
-        data: IPutPostDTO,
-        profileImage?: Express.Multer.File,
+        data: IPutCommentDTO,
     ): Promise<ResponseEntity> {
-        const result = await this.postRepository.edit(data);
+        const result = await this.commentsRepository.update(data);
         if (!result.ok) return result;
-
-        // if everything was ok with the creation we save the profile image (if exists)
-        if (profileImage) {
-            // saving the image to firebase and getting the url
-            const fileType = profileImage.mimetype.split("/")[1];
-            // const profileImageUrl = await this.mediaProxy.saveImage(
-            //     profileImage.buffer,
-            //     `/${result.data.id}/img/profile/${doctor.apelido}-profile-image.${fileType}`,
-            // );
-
-            // updating the image profile
-            // await this.doctorRepository.setProfileImage(
-            //     doctor.id,
-            //     profileImageUrl,
-            // );
-
-            // doctor.imagem = profileImageUrl;
-        }
 
         return result;
     }

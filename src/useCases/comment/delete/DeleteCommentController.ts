@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
-import { DeletePostUseCase } from "./DeletePostUseCase";
+import { DeleteCommentUseCase } from "./DeletePostUseCase";
 
-export class DeletePostController {
-    constructor(private deletePostUseCase: DeletePostUseCase) { }
+export class DeleteCommentController {
+    constructor(private deletePostUseCase: DeleteCommentUseCase) { }
 
     async handle(request: Request, response: Response): Promise<Response> {
         try {
@@ -18,7 +18,7 @@ export class DeletePostController {
             const error = e as Error;
 
             return response.status(400).json(
-                new ResponseEntity(false, "Unable To GET Doctor", {
+                new ResponseEntity(false, "Unable To delete comment", {
                     error: {
                         name: error.name,
                         message: error.message,

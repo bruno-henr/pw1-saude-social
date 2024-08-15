@@ -1,9 +1,8 @@
-import { mediaProxy } from "../../../proxies";
-import { postRepository } from "../../../repositories";
-import { PutPostController } from "./PutPostController";
-import { PutPostUseCase } from "./PutPostUseCase";
+import { commentsRepository } from "../../../repositories";
+import { PutCommentController } from "./PutPostController";
+import { PutCommentUseCase } from "./PutPostUseCase";
 
-const putPostUseCase = new PutPostUseCase(postRepository, mediaProxy);
-const putPostController = new PutPostController(putPostUseCase);
+const putCommentUseCase = new PutCommentUseCase(commentsRepository);
+const putCommentController = new PutCommentController(putCommentUseCase);
 
-export { putPostController };
+export { putCommentController };

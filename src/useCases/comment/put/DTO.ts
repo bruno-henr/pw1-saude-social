@@ -1,6 +1,4 @@
-export interface IPutPostDTO {
+export interface IPutCommentDTO {
     id: string;
-    conteudo?: string;
-    tags?: string;
-    vits?: number;
+    conteudo: string;
 }

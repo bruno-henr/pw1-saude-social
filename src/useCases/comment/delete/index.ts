@@ -1,8 +1,8 @@
-import { postRepository } from "../../../repositories";
-import { DeletePostController } from "./DeletePostController";
-import { DeletePostUseCase } from "./DeletePostUseCase";
+import { commentsRepository } from "../../../repositories";
+import { DeleteCommentController } from "./DeleteCommentController";
+import { DeleteCommentUseCase } from "./DeletePostUseCase";
 
-const deletePostUseCase = new DeletePostUseCase(postRepository);
-const deletePostController = new DeletePostController(deletePostUseCase);
+const deleteCommentUseCase = new DeleteCommentUseCase(commentsRepository);
+const deleteCommentController = new DeleteCommentController(deleteCommentUseCase);
 
-export { deletePostController };
+export { deleteCommentController };

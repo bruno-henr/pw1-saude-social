@@ -1,15 +1,15 @@
-import { IPostRepository } from "../../../repositories/interface/IPostRepository";
+import { ICommentsRepository } from "../../../repositories/interface/ICommentsRepository";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 
-export class DeletePostUseCase {
+export class DeleteCommentUseCase {
     constructor(
-        private postRepository: IPostRepository,
+        private commentsRepository: ICommentsRepository,
     ) {}
 
     async execute(
         id: string
     ): Promise<ResponseEntity> {
-        const result = await this.postRepository.delete(id);
+        const result = await this.commentsRepository.delete(id);
         if (!result.ok) return result;
 
         return result;

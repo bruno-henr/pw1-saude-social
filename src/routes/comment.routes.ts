@@ -1,11 +1,10 @@
 import { Request, Response, Router } from "express";
-import { body, header, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 import multer from "multer";
-import { deleteDoctorController } from "../useCases/doctor/delete";
-import { updateDoctorController } from "../useCases/doctor/update";
-import { getDoctorController } from "../useCases/doctor/get";
 import { commentPostController } from "../useCases/comment/create";
 import { listCommentController } from "../useCases/comment/list";
+import { putCommentController } from "../useCases/comment/put";
+import { deleteCommentController } from "../useCases/comment/delete";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const commentRouter = Router();
@@ -40,8 +39,7 @@ commentRouter.get(
 
 commentRouter.put(
     "/",
-    upload.single("profileImage"),
-    body(["id", "nome", "apelido", "crm", "email", "hospital"])
+    body(["id", "conteudo"])
         .notEmpty()
         .escape()
         .withMessage("Field Cannot Be Empty"),
@@ -49,7 +47,7 @@ commentRouter.put(
         const result = validationResult(req);
 
         if (result.isEmpty()) {
-            return updateDoctorController.handle(req, res);
+            return putCommentController.handle(req, res);
         }
 
         return res.status(400).json({
@@ -61,14 +59,9 @@ commentRouter.put(
 );
 
 commentRouter.delete(
-    "/",
-    header("doctorId")
-        .notEmpty()
-        .escape()
-        .withMessage("Doctor Id must be passed in a HTTP header "),
+    "/:id",
     (req: Request, res: Response) => {
-        if (validationResult(req).isEmpty())
-            return deleteDoctorController.handle(req, res);
+        return deleteCommentController.handle(req, res);
     },
 );
 
