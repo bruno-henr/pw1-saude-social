@@ -1,5 +1,5 @@
 import * as admin from "firebase-admin/app";
-import serviceAccount from "./serviceAccount.json";
+import serviceAccount from "./saude-social-upload-config.json";
 import { getStorage } from "firebase-admin/storage";
 
 admin.initializeApp({
@@ -8,7 +8,7 @@ admin.initializeApp({
 
 // getting modules
 const bucket = getStorage(admin.getApp()).bucket(
-    "saude-social-10729.appspot.com",
+    "saude-social-upload-nodejs.appspot.com",
 );
 
 export { bucket };

@@ -21,7 +21,7 @@ postRouter.post(
         .withMessage("Field Cannot Be Empty"), // validating fields
     (req, res) => {
         const result = validationResult(req);
-
+        console.log('body => ', req.body)
         if (result.isEmpty()) {
             return createPostController.handle(req, res);
         }

@@ -8,13 +8,13 @@ export class CreatePostController {
 
     async handle(request: Request, response: Response): Promise<Response> {
         try {
-            const filesPost = request.file;
+            const filesPost = request.files as Express.Multer.File[];
             const data: ICreatePostDTO = request.body;
 
             // executing the useCase
             const result = await this.createPostUseCase.execute(
                 data,
-                filesPost,
+                filesPost
             );
             if (!result.ok) return response.status(400).json(result);
             return response.status(201).json(result);

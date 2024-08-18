@@ -11,15 +11,22 @@ export class CreatePostUseCase {
 
     async execute(
         data: ICreatePostDTO,
-        profileImage?: Express.Multer.File,
+        filesPost?: Express.Multer.File[],
     ): Promise<ResponseEntity> {
         const result = await this.postRepository.save(data);
         if (!result.ok) return result;
 
         // if everything was ok with the creation we save the profile image (if exists)
-        if (profileImage) {
+        console.log('filesPost controller => ', filesPost)
+        if (filesPost) {
+            for (const file of filesPost) {
+                const fileType = file.mimetype.split("/")[1];
+                const filePath = `${result.data.id}/${Date.now()}.${fileType}`;
+                const url = await this.mediaProxy.saveImage(file.buffer, filePath);
+                
+            }
             // saving the image to firebase and getting the url
-            const fileType = profileImage.mimetype.split("/")[1];
+            //const fileType = profileImage.mimetype.split("/")[1];
             // const profileImageUrl = await this.mediaProxy.saveImage(
             //     profileImage.buffer,
             //     `/${result.data.id}/img/profile/${doctor.apelido}-profile-image.${fileType}`,
