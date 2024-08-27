@@ -1,6 +1,6 @@
 import { initRepositories } from "./imp/sequelize/initRepositories";
 
-const { commentsRepository, postRepository, doctorRepository } =
+const { commentsRepository, postRepository, doctorRepository, filesRepository } =
     initRepositories();
 
-export { doctorRepository, postRepository };
+export { doctorRepository, postRepository, commentsRepository, filesRepository };

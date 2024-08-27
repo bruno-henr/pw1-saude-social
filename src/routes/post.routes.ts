@@ -4,21 +4,25 @@
 
 import { Router } from "express";
 import { createPostController } from "../useCases/post/create";
+import { listPostController } from "../useCases/post/list";
 import { body, validationResult } from "express-validator";
 import multer from "multer";
+import { putPostController } from "../useCases/post/put";
+import { deletePostController } from "../useCases/post/delete";
 const upload = multer({ storage: multer.memoryStorage() });
 const postRouter = Router();
 
 postRouter.post(
     "/post",
-    upload.array("filesPost", 5), 
-    body(["conteudo", "tags", "vits", "medicoId"])
+    upload.array("filesPost", 5),
+    body(["conteudo", "tags", "medicoId"])
         .notEmpty()
         .escape()
         .withMessage("Field Cannot Be Empty"), // validating fields
     (req, res) => {
-        const result = validationResult(req);
-
+        const result = validationResult(req.body.body);
+        req.body = JSON.parse(req.body.body)
+        console.log('body => ', req.body)
         if (result.isEmpty()) {
             return createPostController.handle(req, res);
         }
@@ -29,6 +33,40 @@ postRouter.post(
             erros: result.array(),
         });
     },
+);
+
+postRouter.get(
+    "/post",
+    (req, res) => {
+        return listPostController.handle(req, res);
+    },
+);
+postRouter.put(
+    "/post",
+    upload.array("filesPost", 5),
+    body(["id"])
+        .notEmpty()
+        .escape()
+        .withMessage("Field Cannot Be Empty"), // validating fields
+    (req, res) => {
+        const result = validationResult(req);
+
+        if (result.isEmpty()) {
+            return putPostController.handle(req, res);
+        }
+        return res.status(400).json({
+            ok: false,
+            message: `All fields must be not fullfield`,
+            erros: result.array(),
+        });
+    },
+);
+
+postRouter.delete(
+    "/post/:id",
+    (req, res) => {
+        return deletePostController.handle(req, res);
+    }
 );
 
 export { postRouter };

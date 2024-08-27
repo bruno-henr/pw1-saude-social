@@ -4,5 +4,5 @@ export interface ICreatePostDTO {
     createdAt?: string;
     conteudo: string;
     tags: string;
-    vits: string;
+    vits: number;
 }

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "saude-social-upload-nodejs",
+  "private_key_id": "33f9498cb08ce91e6bb07ad2c4de6bb81755b763",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCbvxDXykMXbQcb\nktqaOuTjQDbgE48HUsDPwtVV2ZFKCeTdl9ebdwt7VUAmcfXF+fO/ocx3rR2IzDmI\nZ5HgoYtXk0wq9r8uKW9FmdtrhSSzUZiicjxmr7ql/srUaoUjYnyKDpmd6t9M43qi\nDvLzUvRpi1upG+nRAns+5OE7R9OO20YeZ+UfGh/UQmiomTY9unScMNy312YsgxUc\n5KCJydgB8rXdy0IAw6Izq0/Sw84PVZjapAMuKhyXr3CLuY3BsyLpZ9QBI6vmo0Vh\nXb5MQP1LQ2HFmumSsare8btlaYiBtyHmsjUGG9BQe4nI5T2nfK+HBpX0vRcxG2ZB\ncltIFGU7AgMBAAECggEADbagmoeGKclhT1W6ZssZvUK5sjg2p0vriz+Z/jGmf9Do\nNHS6uMceHTFv8RKms9Ri2HQ8Jyt4hsOIq1CHQTKoLMFc+wl34u4mDIhUEB8MkLd2\nC5Ooatg9RIFvRY3NhESXN6a6cvOrzr7W3O8ZCEC9IY/yNa0uBMfFp0+K32ffIlxc\nHfGXZi8cqcgD9sVXKmC4RIMF7OX61myWufMAALHG3MyXgO2WdYZQw8Yh02QfcaD7\nEMG9QFrtPLJVZt7JG1mL9Gfsk0rUSVpoEFEyoTKpgOGl4WXiaG5KBK0O+c8AGT1g\nQo2cbF6yJ76DaFiBJMtwb/8mQAOCuBhBcRr4m9V6hQKBgQDNoM9sfOUn1N9m4JqS\nzjMKodyX6V0pp6k4Nc7loktfitBj1YNrGpSAr95eFIYeeQ7DtUtp+WVudaruGXuw\nzD6HN5b53nXYxGBbuXPBEf34XpXbe4wr9dogDzqfJ3YOEIKvXL1RLOjqizk0q5IR\nN8QOnf0+RTniTT7l0dix+xFttwKBgQDB5htfd54M9tEP5fiQPR1mmI+m9uWbo4Jw\nE7+7wr+jXI/zmoVmHzk19mVwjizhIUVng1EZxH+UcN7oNQ5UHQVgDMQ7QolJr/jl\nUg8UWHuNOsudFxJ0IfI0/dmYpLK72HwBgO8wuznW3fZPCwGzSdS+qK7rKkFFofXa\nlsFEvLzEnQKBgHd1GauD7zixoUtJ5mKs6dgeamHST64YWeVu1RBwtWr+4MtuydcZ\n7PXJtdxf/f6MA3jMxM/+8980+qUyJrpyHU0+jTYB9+KDSxteZJHgWvPENzj30Fnl\njN+dGUhGi33mN5Wawdz7wyAm24fuuH/KLtrzC6D2ZIdEquqme0YCfoCHAoGADjdV\nyHEXuHGcMGM3DzQ75JrI5X/yo6+gT6FTDGwh6tNNhpnMsAkYA7nWBCOYbMUotoct\nOgtrIzIHVdUWANrD2x/0fzfIowtw3zdd/arjHB60cQcRBky62mHGQ2fH5vffV6jh\nYJxJiFRry63N6Rw/qd7qPDmz4WwXf3hQIT8JRA0CgYBif+32HSWNLX1DXrNcAVK8\ndACGUoGwZ9T6NAjTPdEdfpNboqtW0GSAWxqZGufaEPsniQpAHoc9glwABYfxAylX\nArgHBnznFurVnycW+cTMXh53OF32F/ZjQ6JLYOEL9BXiSMkx9PCbDPEW6w6+dRUh\n1i2N7KG5dvEOo/MxYIP5aA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-1mpby@saude-social-upload-nodejs.iam.gserviceaccount.com",
+  "client_id": "107973304864479235252",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1mpby%40saude-social-upload-nodejs.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -14,4 +14,9 @@ export class FirebaseMediaProxy implements MediaProxy {
     async deleteStorage(username: string): Promise<void> {
         await bucket.deleteFiles({ prefix: `${username}/` });
     }
+
+    async deleteFile(filePath: string): Promise<void> {
+        const file = bucket.file(filePath);
+        await file.delete();
+    }
 }

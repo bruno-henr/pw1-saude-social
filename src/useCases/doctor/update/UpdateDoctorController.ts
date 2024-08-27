@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { IUpdateDoctorDTO } from "./DTO";
-import { UpdateDoctorService } from "./UpdateDoctorUseCase";
+import { UpdateDoctorUseCase } from "./UpdateDoctorUseCase";
 
 export class UpdateDoctorCotroller {
-    constructor(private updateDoctorSerivce: UpdateDoctorService) {}
+    constructor(private updateDoctorSerivce: UpdateDoctorUseCase) {}
 
     async handle(req: Request, res: Response) {
         try {

@@ -19,7 +19,8 @@ const PostModelProperties: ModelAttributes<PostModel> = {
     },
 
     vits: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
 };
 
