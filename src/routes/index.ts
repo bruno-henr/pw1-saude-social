@@ -8,5 +8,5 @@ export const router = Router();
 
 router.use("/medico", doctorRouter);
 router.use("/comment", commentRouter);
-router.use(uploadRouter);
+router.use("/upload", uploadRouter);
 router.use(postRouter);
