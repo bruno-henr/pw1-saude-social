@@ -6,7 +6,6 @@ import { ICreatePostDTO } from "./DTO";
 export class CreatePostUseCase {
     constructor(
         private postRepository: IPostRepository,
-        private mediaProxy: MediaProxy,
     ) {}
 
     async execute(
@@ -18,28 +17,7 @@ export class CreatePostUseCase {
 
         // if everything was ok with the creation we save the profile image (if exists)
         console.log('filesPost controller => ', filesPost)
-        if (filesPost) {
-            for (const file of filesPost) {
-                const fileType = file.mimetype.split("/")[1];
-                const filePath = `${result.data.id}/${Date.now()}.${fileType}`;
-                const url = await this.mediaProxy.saveImage(file.buffer, filePath);
-                
-            }
-            // saving the image to firebase and getting the url
-            //const fileType = profileImage.mimetype.split("/")[1];
-            // const profileImageUrl = await this.mediaProxy.saveImage(
-            //     profileImage.buffer,
-            //     `/${result.data.id}/img/profile/${doctor.apelido}-profile-image.${fileType}`,
-            // );
-
-            // updating the image profile
-            // await this.doctorRepository.setProfileImage(
-            //     doctor.id,
-            //     profileImageUrl,
-            // );
-
-            // doctor.imagem = profileImageUrl;
-        }
+        
 
         return result;
     }
