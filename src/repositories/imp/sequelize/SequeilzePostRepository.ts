@@ -8,6 +8,7 @@ import { ICreatePostDTO } from "../../../useCases/post/create/DTO";
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { IPostRepository } from "../../interface/IPostRepository";
 import { IPutPostDTO } from "../../../useCases/post/put/DTO";
+import { FileModel } from "../../../model/imp/sequelize/FileModel";
 
 export class SequelizePostRepository implements IPostRepository {
     constructor(sequelize: Sequelize) {
@@ -18,6 +19,9 @@ export class SequelizePostRepository implements IPostRepository {
         });
 
         PostModel.hasMany(CommentsModel, {
+            foreignKey: "postagemId",
+        });
+        PostModel.hasMany(FileModel, {
             foreignKey: "postagemId",
         });
     }
@@ -54,10 +58,10 @@ export class SequelizePostRepository implements IPostRepository {
                     where: {
                         medicoId: medicoId,
                     },
-                    include: CommentsModel
+                    include: [CommentsModel, FileModel]
                 });
             else result = await PostModel.findAll({
-                include: CommentsModel
+                include: [CommentsModel, FileModel]
             });
 
             return new ResponseEntity(true, "Post found", result);
