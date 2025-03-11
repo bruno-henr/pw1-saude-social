@@ -1,11 +1,11 @@
-import { Comments } from "./model/Comments";
-import { Doctor } from "./model/Doctor";
-import { File } from "./model/File";
-import { Post } from "./model/Post";
-import { PostFile } from "./model/PostagemArquivo";
+import { CommentsModel } from "./model/imp/sequelize/CommentsModel";
+import { DoctorModel } from "./model/imp/sequelize/DoctorModel";
+import { FileModel } from "./model/imp/sequelize/FileModel";
+import { PostFileModel } from "./model/imp/sequelize/PostFileModel";
+import { PostModel } from "./model/imp/sequelize/PostModel";
 
-Doctor.sync({ logging: false });
-Comments.sync({ logging: false });
-File.sync({ logging: false });
-Post.sync({ logging: false });
-PostFile.sync({ logging: false });
+DoctorModel.sync({ logging: false });
+// CommentsModel.sync({ logging: false });
+// FileModel.sync({ logging: false });
+// PostFileModel.sync({ logging: false });
+// PostModel.sync({ logging: false });

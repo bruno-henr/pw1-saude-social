@@ -4,12 +4,12 @@ import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 export class ListPostUseCase {
     constructor(
         private postRepository: IPostRepository,
-    ) {}
+    ) { }
 
     async execute(
-        medicoId: string
+        data: { medicoId?: string, content?: string }
     ): Promise<ResponseEntity> {
-        const result = await this.postRepository.list(medicoId);
+        const result = await this.postRepository.list(data);
         if (!result.ok) return result;
 
         return result;

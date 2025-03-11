@@ -21,6 +21,10 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         DoctorModel.hasMany(PostModel, {
             foreignKey: "medicoId",
         });
+        PostModel.belongsTo(DoctorModel, {
+            foreignKey: "medicoId",
+            as: "doctor",
+        });
     }
 
     async save(doctor: ICreateDoctorDTO): Promise<ResponseEntity> {
@@ -62,6 +66,19 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         }
     }
 
+    async findMedic({ nome }: { nome: string }): Promise<ResponseEntity> {
+        try {
+            await DoctorModel.sync();
+
+            let doctors: DoctorModel[];
+            doctors = await DoctorModel.findAll({ where: { nome } });
+
+            return new ResponseEntity(true, "Doctors found", doctors);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
+    }
+
     async delete(id: string): Promise<ResponseEntity> {
         try {
             await DoctorModel.sync();
@@ -83,6 +100,22 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
         try {
             await DoctorModel.sync();
             const doctorFound = await DoctorModel.findByPk(pk);
+
+            if (!doctorFound) throw new Error("Doctor not found");
+
+            return new ResponseEntity(true, "Query successfull", doctorFound);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
+    }
+
+    async findByEmail(email: string): Promise<ResponseEntity> {
+        try {
+            await DoctorModel.sync();
+            const doctorFound = await DoctorModel.findOne({
+                where: { email }
+            }
+            );
 
             if (!doctorFound) throw new Error("Doctor not found");
 

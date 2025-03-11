@@ -9,6 +9,7 @@ import { createDoctorController } from "../useCases/doctor/create";
 import { deleteDoctorController } from "../useCases/doctor/delete";
 import { updateDoctorController } from "../useCases/doctor/update";
 import { getDoctorController } from "../useCases/doctor/get";
+import { loginController } from '../useCases/doctor/login'
 
 const upload = multer({ storage: multer.memoryStorage() });
 const doctorRouter = Router();
@@ -25,6 +26,27 @@ doctorRouter.post(
 
         if (result.isEmpty()) {
             return createDoctorController.handle(req, res);
+        }
+
+        return res.status(400).json({
+            ok: false,
+            message: `All fields must be not fullfield`,
+            erros: result.array(),
+        });
+    },
+);
+
+doctorRouter.post(
+    "/login",
+    body(["email", "senha"])
+        .notEmpty()
+        .escape()
+        .withMessage("Field Cannot Be Empty"), // validating fields
+    (req, res) => {
+        const result = validationResult(req);
+
+        if (result.isEmpty()) {
+            return loginController.handle(req, res);
         }
 
         return res.status(400).json({

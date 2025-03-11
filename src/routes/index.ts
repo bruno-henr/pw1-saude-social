@@ -3,9 +3,11 @@ import { doctorRouter } from "./doctor.routes";
 import { postRouter } from "./post.routes";
 import { commentRouter } from "./comment.routes";
 import { uploadRouter } from "./upload.routes";
+import { searchRouter } from "./search.routes";
 
 export const router = Router();
 
+router.use(searchRouter);
 router.use("/medico", doctorRouter);
 router.use("/comment", commentRouter);
 router.use("/upload", uploadRouter);

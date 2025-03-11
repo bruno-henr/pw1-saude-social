@@ -9,9 +9,9 @@ export class ListPostController {
         try {
             const { medicoId } = request.query;
 
-            const result = await this.listPostUseCase.execute(
-                medicoId as string
-            );
+            const result = await this.listPostUseCase.execute({ 
+                medicoId: medicoId as string 
+            });
             if (!result.ok) return response.status(400).json(result);
             return response.status(200).json(result);
         } catch (e) {

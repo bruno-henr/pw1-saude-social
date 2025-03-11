@@ -8,7 +8,7 @@ export class CreateDoctorController {
 
     async handle(request: Request, response: Response): Promise<Response> {
         const profileImage = request.file;
-        const { apelido, crm, email, hospital, nome } =
+        const { apelido, crm, email, hospital, nome, senha } =
             request.body as ICreateDoctorDTO;
 
         try {
@@ -19,6 +19,7 @@ export class CreateDoctorController {
                 crm,
                 email,
                 hospital,
+                senha
             };
 
             // executing the useCase

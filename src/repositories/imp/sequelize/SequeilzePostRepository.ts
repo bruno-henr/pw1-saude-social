@@ -9,6 +9,7 @@ import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { IPostRepository } from "../../interface/IPostRepository";
 import { IPutPostDTO } from "../../../useCases/post/put/DTO";
 import { FileModel } from "../../../model/imp/sequelize/FileModel";
+import { DoctorModel } from "../../../model/imp/sequelize/DoctorModel";
 
 export class SequelizePostRepository implements IPostRepository {
     constructor(sequelize: Sequelize) {
@@ -24,6 +25,8 @@ export class SequelizePostRepository implements IPostRepository {
         PostModel.hasMany(FileModel, {
             foreignKey: "postagemId",
         });
+
+
     }
 
     async save(post: ICreatePostDTO): Promise<ResponseEntity> {
@@ -48,7 +51,8 @@ export class SequelizePostRepository implements IPostRepository {
             return new ResponseEntity(false, error, {});
         }
     }
-    async list(medicoId: string): Promise<ResponseEntity> {
+
+    async list({ medicoId, content }: { medicoId?: string, content?: string }): Promise<ResponseEntity> {
         try {
             await PostModel.sync();
             let result: PostModel | PostModel[];
@@ -57,11 +61,12 @@ export class SequelizePostRepository implements IPostRepository {
                 result = await PostModel.findAll({
                     where: {
                         medicoId: medicoId,
+                        content
                     },
                     include: [CommentsModel, FileModel]
                 });
             else result = await PostModel.findAll({
-                include: [CommentsModel, FileModel]
+                include: [CommentsModel, FileModel, { model: DoctorModel, as: "doctor" }]
             });
 
             return new ResponseEntity(true, "Post found", result);
@@ -69,6 +74,22 @@ export class SequelizePostRepository implements IPostRepository {
             return new ResponseEntity(false, error, {});
         }
     }
+    async listPosts({ conteudo }: { conteudo: string }): Promise<ResponseEntity> {
+        try {
+            await PostModel.sync();
+            const result = await PostModel.findAll({
+                where: {
+                    conteudo
+                },
+            });
+            console.log(result)
+
+            return new ResponseEntity(true, "Post found", result);
+        } catch (error: any) {
+            return new ResponseEntity(false, error, {});
+        }
+    }
+
     async delete(id: string): Promise<ResponseEntity> {
         try {
             await PostModel.sync();

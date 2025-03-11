@@ -1,4 +1,5 @@
 import { DataTypes, Model, ModelAttributes } from "sequelize";
+import { DoctorModel } from "./DoctorModel";
 
 class PostModel extends Model {}
 

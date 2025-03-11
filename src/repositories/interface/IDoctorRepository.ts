@@ -12,5 +12,7 @@ export interface IDoctorRepository {
     save(doctor: ICreateDoctorDTO): Promise<ResponseEntity>;
     updateOne(doctor: IUpdateDoctorDTO): Promise<ResponseEntity>;
     list(queries: any): Promise<ResponseEntity>;
+    findMedic(queries: { nome: string }): Promise<ResponseEntity>;
     delete(id: string): Promise<ResponseEntity>;
+    findByEmail(email: string): Promise<ResponseEntity>;
 }

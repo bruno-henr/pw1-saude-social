@@ -10,6 +10,7 @@ export class PutPostController {
         try {
             const filesPost = request.file;
             const data: IPutPostDTO = request.body;
+            console.log('body => ', data)
 
             // executing the useCase
             const result = await this.putPostUseCase.execute(

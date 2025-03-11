@@ -28,6 +28,11 @@ const DoctorModelProperties: ModelAttributes<DoctorModel> = {
         unique: true,
     },
 
+    senha: {
+        type: DataTypes.STRING,
+        unique: true,
+    },
+
     hospital: {
         type: DataTypes.STRING,
     },

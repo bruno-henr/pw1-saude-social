@@ -3,6 +3,7 @@ import { IDoctorRepository } from "../../../repositories/interface/IDoctorReposi
 import { ResponseEntity } from "../../../utils/implementations/ResponseEntity";
 import { validateEmail } from "../../../utils/validations/validateEmail";
 import { ICreateDoctorDTO } from "./DTO";
+import * as bcrypt from "bcrypt";
 
 export class CreateDoctorUseCase {
     constructor(
@@ -18,7 +19,11 @@ export class CreateDoctorUseCase {
             return new ResponseEntity(false, "Email is invalid.", {});
         }
         // registering the doctor
-        let result = await this.doctorRepository.save(doctor);
+        const hashedPassword = await bcrypt.hash(doctor.senha, 7);
+        let result = await this.doctorRepository.save({
+            ...doctor,
+            senha: hashedPassword
+        });
 
         // if everything was ok with the creation we save the profile image (if exists)
         if (profileImage && result.ok) {
