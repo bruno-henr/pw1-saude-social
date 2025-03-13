@@ -1,4 +1,4 @@
-import { Sequelize, WhereOptions } from "sequelize";
+import { Op, Sequelize, WhereOptions } from "sequelize";
 import { uuid } from "uuidv4";
 import {
     DoctorModel,
@@ -71,7 +71,13 @@ export class SequelizeDoctorRepository implements IDoctorRepository {
             await DoctorModel.sync();
 
             let doctors: DoctorModel[];
-            doctors = await DoctorModel.findAll({ where: { nome } });
+            doctors = await DoctorModel.findAll({
+                where: {
+                    nome: {
+                        [Op.like]: `%${nome}%`
+                    }
+                }
+            });
 
             return new ResponseEntity(true, "Doctors found", doctors);
         } catch (error: any) {

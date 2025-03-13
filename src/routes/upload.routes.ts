@@ -13,6 +13,7 @@ uploadRouter.post("/",
         .escape()
         .withMessage("Field Cannot Be Empty"),
     (req, res) => {
+        console.log('aoba')
         const result = validationResult(req.body);
 
         if (result.isEmpty()) {

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "saudesocialdb",
+  "private_key_id": "6ac3105c9ebe334a912022bd9b88bca15ebc5586",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8SNqmbaBm57B3\nMd4uFWOwePCn0jh5mESUruapk8VQpILOtaYKG7usJljXPGp9B211ugcgTfLd491R\nXlW0/IkAAPkZxCNteNGfvpJFEZNO/9G05bTzSfD7roqw8zvD0bXuQYNoK90/yC2b\n5+AVEoeN0lx8rh9crO+X9OuzAtCRiQk9fqks4y6L33jh5msSdw9PlO8FlZypVuI0\njJ9nyuHJ2cLPARcG+/+Nnu0WtLPKfWVzpQRPUjBAxiV2XUIx4Ph3fRt8mIW6gyh6\nDuyhM4hv3PSg92XtWfrhpzHiSqrbiDgkJFHd5l4BxRENv5efAG+RQ23cOL/yiXLB\nSjKrJmI3AgMBAAECggEAAjFKU917RzIpKhIrbKz0wWV/I+0nmYmOOY8EgkgFaF1/\nZR8qD6cSsJFXv9XlGuSfFTEKi96XK+ykiKHebKJI3sukGvU0672YRKcdoUPwS7S1\n6/MwKr8bLnXHXq0jw9wperH08PMbJfbTn85Q8TM13zm/uEyiHTGprpgnCylxZVMb\n5qPmaDzpwiY1ZhQ45zqOKBede9I+1s82UyqhdaM1M/IuJDBIGtH2IxU8uKl+AWCd\n5kHScX6kgTbKZs57aoiwYtD5CE2NpG/2h5shm0xSjPzKYfisqu/6ozVgx+tQEtzo\nMyw+OrGblAXrTZD4IVwblGk70Otwzs48g5HE7DNw5QKBgQDtVHPBQWfOwUkryQoy\njKAYTQXbK8nk516fTmu+vWkBSZrEreP82csgu8yBdBPDeZs37ipS5fu0HbyTTeIE\nyKl+jbuLDE8t03CvJ6ATjumws1M5YfckIt/xYwnLA1AKmARM/MrlQWcOYDRnlHLN\nQfnWCiDZFndV1W4FN7e5qBPztQKBgQDLGK/CzpUJcwwU+z6fsDs+zTAfDbZ5oEva\nj3yioVM6EaT+kJAd//7Y/Ycfd57CEX/bC1vuv1m6TE9N+XJGoV5NhVZ/EhwTpJAb\n4KnQmOGgSMBI4izvrmr5DQF6yUFoPdG4eY1lJBJP7DPNXwtByHSzoVzCrUs0sgeV\n2xobUjoJuwKBgQCNHm9qFXMdbK8Omw82OYokiQAXb7UwKCeKgH3uv//FJTgjBOcQ\n/YwcHa8ftp7d19xk6HhALMJ7OkdcK65ee9bVCn/e0WXvcM+LRvuXRZ5NVIQDFe53\njUkt5l73WTPp6LR99r7KjRYzZR8kDBArXrSpAgLAMuyonC08awITIg8jFQKBgEXL\ndAtkZv9aVBqZxQmnzJRme1UQp1bg6XBwwwo4mptoGOWK1Jwar3/ukJMVzq8uyFuE\nadGAXNuTAeXwBX+UUQ4e9nywwolVkliiOnl/MHqexcXGRF8R950jBREnPJ0QMZRN\n4XOSk+B3cc3wDbRLqR9aIsCcQS4YyFaNd0lQVrWlAoGASRQ4ciYb+KBkVbfSVe72\nMockyey8qc1I/xYb8mwR1FE8Qmn/Q/7TC3maz6ohk+DEKAUZqEYruXl79K+7ba5K\nOFAvw0Prz4q3ydDNSS4+TbTOElkw0mxW8PWUZA815v3ngMXG8UjYwd+hnoKBq63K\nLKFYZmtMY6qG3l+jbybv80I=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@saudesocialdb.iam.gserviceaccount.com",
+  "client_id": "111654017391798608141",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40saudesocialdb.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

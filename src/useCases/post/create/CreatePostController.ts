@@ -32,6 +32,8 @@ export class CreatePostController {
                     const fileType = file.mimetype.split("/")[1];
                     const filePath = `${postagemId}/${Date.now()}.${fileType}`;
                     const url = await this.mediaProxy.saveImage(file.buffer, filePath);
+                    console.clear()
+                    console.log('URL => ', url)
                     await this.saveFileUseCase.execute({
                         postagemId,
                         url

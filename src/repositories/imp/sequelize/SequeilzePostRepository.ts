@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import { CommentsModel } from "../../../model/imp/sequelize/CommentsModel";
 import {
     PostModel,
@@ -61,9 +61,8 @@ export class SequelizePostRepository implements IPostRepository {
                 result = await PostModel.findAll({
                     where: {
                         medicoId: medicoId,
-                        content
                     },
-                    include: [CommentsModel, FileModel]
+                    include: [CommentsModel, FileModel, { model: DoctorModel, as: "doctor" }]
                 });
             else result = await PostModel.findAll({
                 include: [CommentsModel, FileModel, { model: DoctorModel, as: "doctor" }]
@@ -79,8 +78,11 @@ export class SequelizePostRepository implements IPostRepository {
             await PostModel.sync();
             const result = await PostModel.findAll({
                 where: {
-                    conteudo
+                    conteudo: {
+                        [Op.like]: `%${conteudo}%` 
+                    }
                 },
+                include: [CommentsModel, FileModel]
             });
             console.log(result)
 
